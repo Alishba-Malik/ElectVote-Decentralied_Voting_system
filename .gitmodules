@@ -1,0 +1,3 @@
+[submodule "dvote-backend/lib/openzeppelin-contracts"]
+	path = dvote-backend/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
