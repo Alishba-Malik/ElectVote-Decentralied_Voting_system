@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.25;  // Updated to latest stable version
+pragma solidity ^0.8.25;
 
 import "@openzeppelin/contracts/access/Ownable2Step.sol";
 
-contract Vote is Ownable2Step {  // Inherits from Ownable2Step instead of manual owner
-    // Data structure
+contract Vote is Ownable2Step {
     struct Candidate {
         string name;
         uint id;
@@ -13,46 +12,39 @@ contract Vote is Ownable2Step {  // Inherits from Ownable2Step instead of manual
         string metadataURI;
     }
 
-    // State Variables (REMOVED: address public owner)
     uint256 public countCandidates;
     uint256 public votingStart;
     uint256 public votingEnd;
     bool public isPaused;
     uint public leadingCandidateId;
 
-
-    // Mappings
     mapping(uint => Candidate) public candidates;
     mapping(address => bool) public voters;
-    mapping(address => address) public delegations; // Vote delegation system
 
-    // Events
     event CandidateAdded(uint id, string name, string party);
     event Voted(address indexed voter, uint candidateID);
     event VotingDatesSet(uint startDate, uint endDate);
-    event Delegated(address from, address to);
     event Paused(bool isPaused);
 
-    // Modifiers
     modifier votingActive {
         require(!isPaused, "Contract is paused");
         require(block.timestamp >= votingStart && block.timestamp <= votingEnd, "Voting is not active");
         _;
     }
 
-    constructor() Ownable(msg.sender) {  // Initialize Ownable
+    constructor() Ownable(msg.sender) {
         isPaused = false;
         leadingCandidateId = 0;
-    } 
+    }
 
     // ========== ADMIN FUNCTIONS ========== //
     function addCandidate(string memory name, string memory party, string memory uri) public onlyOwner {
-        require(bytes(name).length > 0, "Candidate name cannot be empty");
-        require(bytes(party).length > 0, "Party name cannot be empty");
-        
+        require(bytes(name).length > 0, "Candidate name required");
+        require(bytes(party).length > 0, "Party name required");
+
         countCandidates++;
         candidates[countCandidates] = Candidate(name, countCandidates, party, 0, uri);
-        
+
         emit CandidateAdded(countCandidates, name, party);
     }
 
@@ -75,26 +67,15 @@ contract Vote is Ownable2Step {  // Inherits from Ownable2Step instead of manual
     function vote(uint candidateID) public votingActive {
         require(candidateID > 0 && candidateID <= countCandidates, "Invalid candidate ID");
         require(!voters[msg.sender], "Already voted");
-        require(delegations[msg.sender] == address(0), "You delegated your vote");
 
         voters[msg.sender] = true;
         candidates[candidateID].voteCount++;
-        
-        // Update leading candidate
+
         if (candidates[candidateID].voteCount > candidates[leadingCandidateId].voteCount) {
             leadingCandidateId = candidateID;
         }
 
         emit Voted(msg.sender, candidateID);
-    }
-
-    function delegateVote(address to) public votingActive {
-        require(!voters[msg.sender], "Already voted");
-        require(to != msg.sender, "Cannot delegate to self");
-        require(delegations[to] == address(0), "Chosen delegate already has a delegate");
-
-        delegations[msg.sender] = to;
-        emit Delegated(msg.sender, to);
     }
 
     // ========== VIEW FUNCTIONS ========== //
@@ -111,7 +92,7 @@ contract Vote is Ownable2Step {  // Inherits from Ownable2Step instead of manual
     }
 
     function checkVote() public view returns (bool) {
-        return voters[msg.sender] || delegations[msg.sender] != address(0);
+        return voters[msg.sender];
     }
 
     function getWinner() public view returns (string memory, string memory, uint) {
