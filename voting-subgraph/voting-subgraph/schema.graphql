@@ -8,15 +8,6 @@ type CandidateAdded @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type Delegated @entity(immutable: true) {
-  id: Bytes!
-  from: Bytes! # address
-  to: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
 type OwnershipTransferStarted @entity(immutable: true) {
   id: Bytes!
   previousOwner: Bytes! # address

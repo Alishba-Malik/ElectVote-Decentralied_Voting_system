@@ -2,7 +2,6 @@ import { newMockEvent } from "matchstick-as"
 import { ethereum, BigInt, Address } from "@graphprotocol/graph-ts"
 import {
   CandidateAdded,
-  Delegated,
   OwnershipTransferStarted,
   OwnershipTransferred,
   Paused,
@@ -30,21 +29,6 @@ export function createCandidateAddedEvent(
   )
 
   return candidateAddedEvent
-}
-
-export function createDelegatedEvent(from: Address, to: Address): Delegated {
-  let delegatedEvent = changetype<Delegated>(newMockEvent())
-
-  delegatedEvent.parameters = new Array()
-
-  delegatedEvent.parameters.push(
-    new ethereum.EventParam("from", ethereum.Value.fromAddress(from))
-  )
-  delegatedEvent.parameters.push(
-    new ethereum.EventParam("to", ethereum.Value.fromAddress(to))
-  )
-
-  return delegatedEvent
 }
 
 export function createOwnershipTransferStartedEvent(

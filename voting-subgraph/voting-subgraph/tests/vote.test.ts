@@ -13,7 +13,7 @@ import { handleCandidateAdded } from "../src/vote"
 import { createCandidateAddedEvent } from "./vote-utils"
 
 // Tests structure (matchstick-as >=0.5.0)
-// https://thegraph.com/docs/en/subgraphs/developing/creating/unit-testing-framework/#tests-structure
+// https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0
 
 describe("Describe entity assertions", () => {
   beforeAll(() => {
@@ -29,7 +29,7 @@ describe("Describe entity assertions", () => {
   })
 
   // For more test scenarios, see:
-  // https://thegraph.com/docs/en/subgraphs/developing/creating/unit-testing-framework/#write-a-unit-test
+  // https://thegraph.com/docs/en/developer/matchstick/#write-a-unit-test
 
   test("CandidateAdded created and stored", () => {
     assert.entityCount("CandidateAdded", 1)
@@ -49,6 +49,6 @@ describe("Describe entity assertions", () => {
     )
 
     // More assert options:
-    // https://thegraph.com/docs/en/subgraphs/developing/creating/unit-testing-framework/#asserts
+    // https://thegraph.com/docs/en/developer/matchstick/#asserts
   })
 })

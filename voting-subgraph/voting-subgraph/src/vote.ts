@@ -1,6 +1,5 @@
 import {
   CandidateAdded as CandidateAddedEvent,
-  Delegated as DelegatedEvent,
   OwnershipTransferStarted as OwnershipTransferStartedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   Paused as PausedEvent,
@@ -9,7 +8,6 @@ import {
 } from "../generated/Vote/Vote"
 import {
   CandidateAdded,
-  Delegated,
   OwnershipTransferStarted,
   OwnershipTransferred,
   Paused,
@@ -24,20 +22,6 @@ export function handleCandidateAdded(event: CandidateAddedEvent): void {
   entity.internal_id = event.params.id
   entity.name = event.params.name
   entity.party = event.params.party
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleDelegated(event: DelegatedEvent): void {
-  let entity = new Delegated(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.from = event.params.from
-  entity.to = event.params.to
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
