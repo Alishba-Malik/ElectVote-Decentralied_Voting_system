@@ -12,8 +12,11 @@
   "dependencies": {
     "@rainbow-me/rainbowkit": "^2.2.5",
     "ethers": "^6.14.3",
+    "framer-motion": "^12.16.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.2",
+    "react-use-measure": "^2.1.7",
     "viem": "^2.30.5",
     "wagmi": "^2.15.4"
   },

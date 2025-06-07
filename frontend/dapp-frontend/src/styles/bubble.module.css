@@ -1,0 +1,9 @@
+.hoverText {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  
+  .hoverText:hover {
+    transform: scale(1.5) translateY(-10px);
+    color: #94a3b8;
+  }

@@ -1,0 +1,156 @@
+/* // File: src/styles/Dashboard.css */
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  height: 100vh;
+  background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
+  padding: 2rem;
+}
+
+.dashboard-button {
+  padding: 1.25rem 3rem;
+  font-size: 1.25rem;
+  background: linear-gradient(to right, #111, #1e1e1e); /* Smooth horizontal gradient */
+  border: 1px solid #ffffff30;
+  color: #fff;
+  border-radius: 40px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  width: 280px;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+}
+
+.dashboard-button:hover {
+  background: linear-gradient(to right, #fff, #ddd);
+  color: #000;
+  transform: scale(1.04);
+  border-color: #fff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 15, 15, 0.7);
+  z-index: 100;
+}
+
+.drawer-container {
+  position: absolute;
+  bottom: 0;
+  height: 70vh;
+  width: 100%;
+  background-color: #111;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  overflow-y: auto;
+  z-index: 101;
+}
+
+.drawer-handle-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.drawer-handle {
+  width: 60px;
+  height: 6px;
+  border-radius: 10px;
+  background-color: #555;
+  cursor: grab;
+} 
+
+.drawer-content {
+  padding: 2rem 1.5rem;
+  color: #ccc;
+}
+
+.modal-content {
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.modal-desc {
+  margin: 1rem 0 2rem;
+  color: #aaa;
+}
+
+.admin-auth {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  color: white;
+  margin-top: 1rem;
+  background: rgba(30, 30, 30, 0.85);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  animation: fadeSlideUp 0.4s ease-out forwards;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-input {
+  padding: 0.85rem 1.2rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #1a1a1a;
+  color: white;
+  font-size: 1rem;
+  transition: border 0.25s ease, box-shadow 0.25s ease;
+}
+
+.admin-input:focus {
+  outline: none;
+  border: 1px solid white;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.admin-submit-btn {
+  background: linear-gradient(to right, #ffffff, #dddddd);
+  color: black;
+  padding: 0.9rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  border: none;
+}
+
+.admin-submit-btn:hover {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.error-text {
+  color: #ff5e5e;
+  font-size: 0.9rem;
+  text-align: center;
+}
