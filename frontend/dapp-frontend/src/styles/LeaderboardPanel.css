@@ -1,0 +1,136 @@
+/* File: src/styles/LeaderboardPanel.css */
+
+.leaderboard-wrapper {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+  background-color: #000;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.leaderboard-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 800;
+  color: white;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.leaderboard-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #111;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.leaderboard-card .rank {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ccc;
+  margin-right: 1.5rem;
+  min-width: 50px;
+  text-align: center;
+}
+
+.leaderboard-card .info h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.leaderboard-card .info p {
+  margin: 0.25rem 0;
+  color: #aaa;
+  font-size: 1rem;
+}
+
+.leaderboard-card.top {
+  border: 2px solid white;
+  background-color: #1a1a1a;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  transform: scale(1.02);
+}
+
+.leaderboard-card.regular {
+  border: 1px solid #444;
+  background-color: #0a0a0a;
+}
+
+@media (max-width: 600px) {
+  .leaderboard-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .leaderboard-card .rank {
+    margin-bottom: 0.5rem;
+    margin-right: 0;
+  }
+}
+
+/* Winner Modal Styles */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 15, 15, 0.85);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.drawer-container.winner-modal {
+  background-color: #111;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  z-index: 2100;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+}
+
+.modal-title {
+  font-size: 2rem;
+  color: white;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.modal-desc {
+  color: #ccc;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.admin-submit-btn {
+  margin-top: 1.5rem;
+  padding: 0.75rem 2rem;
+  font-weight: bold;
+  border-radius: 999px;
+  border: none;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-submit-btn:hover {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}

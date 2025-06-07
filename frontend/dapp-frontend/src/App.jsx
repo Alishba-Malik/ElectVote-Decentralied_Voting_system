@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/DashboardPage";
 import AdminPanel from "./pages/AdminPanel";
+import LeaderboardPanel from "./pages/LeaderboardPanel";
 import "./App.css";
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/" element={<Landing />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/leaderboard" element={<LeaderboardPanel />} />
         </Routes>
       </Router>
       <div

@@ -5,7 +5,7 @@ body {
   color: #fff;
   font-family: 'Segoe UI', sans-serif;
   cursor: none;
-  overflow-x: hidden;
+  overflow: auto;
 }
 
 .custom-cursor {

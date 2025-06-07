@@ -1,0 +1,245 @@
+:root {
+  --accent: #ffffff;
+  --accent-light: #cccccc;
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --card-bg: #111;
+  --border: #333;
+  --primary: #4fbd79;
+  --danger: #ff5e5e;
+  --floating-bg: rgba(255, 255, 255, 0.06);
+  --highlight: #ffffff;
+}
+
+/* Wrapper & Base */
+.admin-wrapper {
+  padding: 80px 24px;
+  max-width: 1080px;
+  margin: 0 auto;
+  background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
+  color: var(--accent);
+}
+
+/* Header */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+.admin-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: white;
+}
+
+/* Floating Tab Menu */
+.tab-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+  gap: 8px;
+  background: linear-gradient(to right, #111, #1e1e1e);
+  color: #fff;
+  border: 1px solid #ffffff30;
+  border-radius: 999px;
+  padding: 6px;
+  backdrop-filter: blur(12px);
+  transition: all 0.35s ease;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+  width: fit-content;
+  margin-inline: auto;
+}
+
+.tab-buttons button {
+  background: transparent;
+  border: none;
+  padding: 12px 24px;
+  color: var(--accent-light);
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.tab-buttons .active-tab {
+  background: linear-gradient(to right, #fff, #ddd);
+  color: #000;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+  transform: scale(1.04);
+  transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.tab-buttons .active-tab:hover {
+  transform: scale(1.08);
+  background: linear-gradient(to right, #ffffff, #cccccc);
+}
+
+/* Admin Card */
+.admin-card {
+  background-color: var(--card-bg);
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.admin-card:hover {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+/* Inputs */
+.admin-input-group {
+  display: grid;
+  gap: 14px;
+}
+
+input {
+  background-color: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--accent);
+  padding: 12px;
+  border-radius: 14px;
+  font-size: 1rem;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid white;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+/* Buttons */
+.admin-button {
+  background: linear-gradient(to right, #ffffff, #dddddd);
+  color: black;
+  font-weight: 600;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+}
+
+.admin-button:hover {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
+.admin-button.pause {
+  background-color: var(--danger);
+  color: #1a1a1a;
+  border-radius: 999px;
+}
+
+.admin-button.activate {
+  background: linear-gradient(to right, #ffffff, #dddddd);
+  color: black;
+}
+
+/* Candidate Cards */
+.candidates-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.candidate-card {
+  background-color: #1a1a1a;
+  padding: 18px;
+  border-radius: 16px;
+  border-left: 4px solid var(--highlight);
+  transition: box-shadow 0.2s ease;
+}
+
+.candidate-card:hover {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.party {
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+.tx-hash {
+  color: #888;
+  font-size: 0.95rem;
+  font-family: monospace;
+}
+
+/* Badge */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+.status-badge.active {
+  color: var(--primary);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.status-badge.paused {
+  color: var(--danger);
+  background-color: rgba(255, 75, 92, 0.1);
+}
+
+/* Loading */
+.admin-loading-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .tab-buttons {
+    flex-wrap: wrap;
+    padding: 4px;
+  }
+
+  .tab-buttons button {
+    flex: 1 1 auto;
+    font-size: 0.85rem;
+    padding: 8px 10px;
+  }
+}
