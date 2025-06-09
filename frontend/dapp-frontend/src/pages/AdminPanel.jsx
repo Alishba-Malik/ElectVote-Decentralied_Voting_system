@@ -4,22 +4,26 @@ import { BrowserProvider, Contract } from "ethers";
 import "../styles/AdminPanel.css";
 
 const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS;
-const subgraphEndpoint = import.meta.env.VITE_SUBGRAPH_URL;
 
 const AdminPanel = () => {
   const [contract, setContract] = useState(null);
-  const [ownerAddress, setOwnerAddress] = useState("");
   const [userAddress, setUserAddress] = useState("");
+  const [ownerAddress, setOwnerAddress] = useState("");
   const [accessGranted, setAccessGranted] = useState(false);
+  const [electionId, setElectionId] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [candidates, setCandidates] = useState([]);
 
   const [candidateName, setCandidateName] = useState("");
   const [candidateParty, setCandidateParty] = useState("");
   const [candidateURI, setCandidateURI] = useState("");
+
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
   const [activeTab, setActiveTab] = useState("controls");
+  const [showWinner, setShowWinner] = useState(false);
+  const [winner, setWinner] = useState(null);
 
   useEffect(() => {
     const init = async () => {
@@ -28,62 +32,65 @@ const AdminPanel = () => {
         const provider = new BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
         const user = await signer.getAddress();
-
         const voteContract = new Contract(contractAddress, abi, signer);
-        const owner = await voteContract.owner();
 
+        const owner = await voteContract.owner();
         setUserAddress(user);
         setOwnerAddress(owner);
 
         if (user.toLowerCase() === owner.toLowerCase()) {
           setAccessGranted(true);
           setContract(voteContract);
-          setIsPaused(await voteContract.isPaused());
-          fetchCandidates();
+
+          const eid = await voteContract.electionId();
+          const e = await voteContract.elections(eid);
+          setElectionId(Number(eid));
+          setIsPaused(e.isPaused);
+
+          fetchCandidates(voteContract, eid);
         }
       } catch (err) {
-        console.error("Error initializing admin panel:", err);
+        console.error("Admin init error:", err);
       }
     };
 
     init();
   }, []);
 
-  const fetchCandidates = async () => {
-    const query = `
-      {
-        candidateAddeds(first: 100, orderBy: internal_id, orderDirection: asc) {
-          internal_id
-          name
-          party
-          transactionHash
+  const fetchCandidates = async (contract, eid) => {
+    try {
+      const count = await contract.getActiveCandidateCount(eid);
+      const list = [];
+      for (let i = 1; i <= count; i++) {
+        const [name, id, party, voteCount, uri, isDeleted] = await contract.getCandidate(eid, i);
+        if (!isDeleted) {
+          list.push({ name, id: Number(id), party, voteCount: Number(voteCount), uri });
         }
       }
-    `;
-
-    try {
-      const res = await fetch(subgraphEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query }),
-      });
-
-      const { data } = await res.json();
-      setCandidates(data.candidateAddeds);
+      setCandidates(list);
     } catch (err) {
-      console.error("Subgraph fetch error:", err);
+      console.error("Candidate fetch error:", err);
     }
   };
 
   const addCandidate = async () => {
     try {
-      await contract.addCandidate(candidateName, candidateParty, candidateURI);
+      await contract.addCandidate(electionId, candidateName, candidateParty, candidateURI);
       setCandidateName("");
       setCandidateParty("");
       setCandidateURI("");
-      fetchCandidates();
+      fetchCandidates(contract, electionId);
     } catch (err) {
-      console.error("Add candidate failed:", err);
+      console.error("Add candidate error:", err);
+    }
+  };
+
+  const deleteCandidate = async (id) => {
+    try {
+      await contract.deleteCandidate(electionId, id);
+      fetchCandidates(contract, electionId);
+    } catch (err) {
+      console.error("Delete candidate error:", err);
     }
   };
 
@@ -92,28 +99,45 @@ const AdminPanel = () => {
       const start = Math.floor(new Date(startDate).getTime() / 1000);
       const end = Math.floor(new Date(endDate).getTime() / 1000);
       await contract.setDates(start, end);
+      const eid = await contract.electionId();
+      setElectionId(Number(eid));
     } catch (err) {
       console.error("Set dates error:", err);
     }
   };
 
+  const resetDates = async () => {
+    try {
+      const start = Math.floor(new Date(startDate).getTime() / 1000);
+      const end = Math.floor(new Date(endDate).getTime() / 1000);
+      await contract.resetDates(electionId, start, end);
+    } catch (err) {
+      console.error("Reset dates error:", err);
+    }
+  };
+
   const togglePause = async () => {
     try {
-      await contract.togglePause();
-      const status = await contract.isPaused();
-      setIsPaused(status);
+      await contract.togglePause(electionId);
+      const e = await contract.elections(electionId);
+      setIsPaused(e.isPaused);
     } catch (err) {
       console.error("Pause toggle failed:", err);
     }
   };
 
+  const getWinner = async () => {
+    try {
+      const [name, party, voteCount] = await contract.getWinner(electionId);
+      setWinner({ name, party, voteCount: Number(voteCount) });
+      setShowWinner(true);
+    } catch (err) {
+      console.warn("Winner fetch error:", err);
+    }
+  };
+
   if (!contract) {
-    return (
-      <div className="admin-loading-screen fade-in">
-        <div className="loading-spinner"></div>
-        <h1>Verifying Admin Access...</h1>
-      </div>
-    );
+    return <div className="admin-loading-screen fade-in"><div className="loading-spinner"></div><h1>Verifying Admin Access</h1></div>;
   }
 
   if (!accessGranted) {
@@ -134,12 +158,12 @@ const AdminPanel = () => {
   return (
     <div className="admin-wrapper">
       <div className="admin-header">
-      <div style={{ padding: "2rem", color: "#fff", }}>
-      <h1>Welcome to the Admin Dashboard</h1>
-      <h3>This is a protected admin area.</h3>
-    </div>
-        <div className={`status-badge ${isPaused ? 'paused' : 'active'}`}>
-          {isPaused ? 'Voting Paused' : 'Voting Active'}
+        <div style={{ padding: "2rem", color: "#fff" }}>
+          <h1>Welcome to the Admin Dashboard</h1>
+          <h3>Election ID: {electionId}</h3>
+        </div>
+        <div className={`status-badge ${isPaused ? "paused" : "active"}`}>
+          {isPaused ? "Voting Paused" : "Voting Active"}
         </div>
       </div>
 
@@ -154,12 +178,10 @@ const AdminPanel = () => {
         {activeTab === "controls" && (
           <section className="admin-card">
             <h2>Voting Controls</h2>
-            <button 
-              className={`admin-button ${isPaused ? 'activate' : 'pause'}`}
-              onClick={togglePause}
-            >
-              {isPaused ? 'Activate Voting' : 'Pause Voting'}
+            <button className={`admin-button ${isPaused ? "activate" : "pause"}`} onClick={togglePause}>
+              {isPaused ? "Activate Voting" : "Pause Voting"}
             </button>
+            <button className="admin-button" onClick={getWinner}>Get Winner</button>
           </section>
         )}
 
@@ -167,47 +189,22 @@ const AdminPanel = () => {
           <section className="admin-card">
             <h2>Add Candidate</h2>
             <div className="admin-input-group">
-              <input
-                type="text"
-                placeholder="Name"
-                value={candidateName}
-                onChange={(e) => setCandidateName(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Party"
-                value={candidateParty}
-                onChange={(e) => setCandidateParty(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Metadata URI"
-                value={candidateURI}
-                onChange={(e) => setCandidateURI(e.target.value)}
-              />
-              <button className="admin-button" onClick={addCandidate}>
-                Add Candidate
-              </button>
+              <input placeholder="Name" value={candidateName} onChange={(e) => setCandidateName(e.target.value)} />
+              <input placeholder="Party" value={candidateParty} onChange={(e) => setCandidateParty(e.target.value)} />
+              <input placeholder="Metadata URI" value={candidateURI} onChange={(e) => setCandidateURI(e.target.value)} />
+              <button className="admin-button" onClick={addCandidate}>Add Candidate</button>
             </div>
           </section>
         )}
 
         {activeTab === "dates" && (
           <section className="admin-card">
-            <h2>Set Voting Period</h2>
+            <h2>{isPaused ? "Reset" : "Set"} Voting Period</h2>
             <div className="admin-input-group">
-              <input
-                type="datetime-local"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-              />
-              <input
-                type="datetime-local"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-              />
-              <button className="admin-button" onClick={setDates}>
-                Set Dates
+              <input type="datetime-local" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+              <input type="datetime-local" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+              <button className="admin-button" onClick={isPaused ? resetDates : setDates}>
+                {isPaused ? "Reset Dates" : "Start New Election"}
               </button>
             </div>
           </section>
@@ -218,16 +215,31 @@ const AdminPanel = () => {
             <h2>Candidates ({candidates.length})</h2>
             <div className="candidates-grid">
               {candidates.map((c) => (
-                <div key={c.internal_id} className="candidate-card">
+                <div key={c.id} className="candidate-card">
                   <h3>{c.name}</h3>
                   <p className="party">{c.party}</p>
-                  <p className="tx-hash">Tx: {c.transactionHash.slice(0, 10)}...</p>
+                  <p className="tx-hash">Votes: {c.voteCount}</p>
+                  <button className="admin-button pause" onClick={() => deleteCandidate(c.id)}>Delete</button>
                 </div>
               ))}
             </div>
           </section>
         )}
       </div>
+
+      {showWinner && winner && (
+        <div className="drawer-overlay" onClick={() => setShowWinner(false)}>
+          <div className="drawer-container winner-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="drawer-content">
+              <h2 className="modal-title">🎉 Winner Declared!</h2>
+              <p className="modal-desc">Candidate: <strong>{winner.name}</strong></p>
+              <p>Party: {winner.party}</p>
+              <p>Total Votes: {winner.voteCount}</p>
+              <button className="admin-submit-btn" onClick={() => setShowWinner(false)}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

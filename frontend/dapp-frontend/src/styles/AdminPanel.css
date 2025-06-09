@@ -10,198 +10,22 @@
   --floating-bg: rgba(255, 255, 255, 0.06);
   --highlight: #ffffff;
 }
-
-/* Wrapper & Base */
 .admin-wrapper {
-  padding: 80px 24px;
-  max-width: 1080px;
-  margin: 0 auto;
+  min-height: 100vh;
   background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
+  padding: 2rem;
   color: var(--accent);
+  font-family: 'Segoe UI', sans-serif;
 }
 
-/* Header */
-.admin-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 40px;
-}
-
-.admin-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: white;
-}
-
-/* Floating Tab Menu */
-.tab-buttons {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 32px;
-  gap: 8px;
-  background: linear-gradient(to right, #111, #1e1e1e);
-  color: #fff;
-  border: 1px solid #ffffff30;
-  border-radius: 999px;
-  padding: 6px;
-  backdrop-filter: blur(12px);
-  transition: all 0.35s ease;
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
-  width: fit-content;
-  margin-inline: auto;
-}
-
-.tab-buttons button {
-  background: transparent;
-  border: none;
-  padding: 12px 24px;
-  color: var(--accent-light);
-  font-weight: 500;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 999px;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.tab-buttons .active-tab {
-  background: linear-gradient(to right, #fff, #ddd);
-  color: #000;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
-  transform: scale(1.04);
-  transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease;
-}
-
-.tab-buttons .active-tab:hover {
-  transform: scale(1.08);
-  background: linear-gradient(to right, #ffffff, #cccccc);
-}
-
-/* Admin Card */
-.admin-card {
-  background-color: var(--card-bg);
-  padding: 32px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(8px);
-  transition: all 0.3s ease;
-}
-
-.admin-card:hover {
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
-}
-
-/* Inputs */
-.admin-input-group {
-  display: grid;
-  gap: 14px;
-}
-
-input {
-  background-color: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: var(--accent);
-  padding: 12px;
-  border-radius: 14px;
-  font-size: 1rem;
-  transition: border-color 0.25s, box-shadow 0.25s;
-}
-
-input:focus {
-  outline: none;
-  border: 1px solid white;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
-}
-
-/* Buttons */
-.admin-button {
-  background: linear-gradient(to right, #ffffff, #dddddd);
-  color: black;
-  font-weight: 600;
-  padding: 14px 28px;
-  border: none;
-  border-radius: 14px;
-  font-size: 1.05rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
-}
-
-.admin-button:hover {
-  background: transparent;
-  color: white;
-  border: 1px solid white;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
-}
-
-.admin-button.pause {
-  background-color: var(--danger);
-  color: #1a1a1a;
-  border-radius: 999px;
-}
-
-.admin-button.activate {
-  background: linear-gradient(to right, #ffffff, #dddddd);
-  color: black;
-}
-
-/* Candidate Cards */
-.candidates-grid {
-  display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-}
-
-.candidate-card {
-  background-color: #1a1a1a;
-  padding: 18px;
-  border-radius: 16px;
-  border-left: 4px solid var(--highlight);
-  transition: box-shadow 0.2s ease;
-}
-
-.candidate-card:hover {
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-}
-
-.party {
-  color: var(--primary);
-  font-size: 0.95rem;
-}
-
-.tx-hash {
-  color: #888;
-  font-size: 0.95rem;
-  font-family: monospace;
-}
-
-/* Badge */
-.status-badge {
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: bold;
-}
-
-.status-badge.active {
-  color: var(--primary);
-  background-color: rgba(255, 255, 255, 0.08);
-}
-
-.status-badge.paused {
-  color: var(--danger);
-  background-color: rgba(255, 75, 92, 0.1);
-}
-
-/* Loading */
+/* Loading State */
 .admin-loading-screen {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100vh;
+  
 }
 
 .fade-in {
@@ -231,15 +55,242 @@ input:focus {
   }
 }
 
-@media (max-width: 768px) {
-  .tab-buttons {
-    flex-wrap: wrap;
-    padding: 4px;
-  }
+.admin-denied {
+  max-width: 600px;
+  margin: auto;
+  background: rgba(30, 30, 30, 0.85);
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+}
 
-  .tab-buttons button {
-    flex: 1 1 auto;
-    font-size: 0.85rem;
-    padding: 8px 10px;
-  }
+.address-info {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 1rem;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+.status-badge.active {
+  color: var(--primary);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.status-badge.paused {
+  color: var(--danger);
+  background-color: rgba(255, 75, 92, 0.1);
+}
+
+
+
+/* Tab buttons */
+.tab-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.tab-buttons button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-buttons button:hover {
+  background: white;
+  color: black;
+  transform: scale(1.04);
+}
+
+.active-tab {
+  background: white;
+  color: black;
+}
+.tab-buttons .active-tab {
+  background: linear-gradient(to right, #fff, #ddd);
+  color: #000;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+  transform: scale(1.04);
+  transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.tab-buttons .active-tab:hover {
+  transform: scale(1.08);
+  background: linear-gradient(to right, #dddada, #ebe8e8);
+}
+
+/* Card Sections */
+.admin-card {
+  background-color: #111;
+  padding: 2rem;
+  border-radius: 1.25rem;
+  border: 1px solid #333;
+  margin-bottom: 2rem;
+}
+
+.admin-card h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+/* Input Group */
+.admin-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.admin-input-group input {
+  padding: 0.9rem 1.25rem;
+  background-color: #1a1a1a;
+  color: white;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 1rem;
+}
+
+.admin-input-group input:focus {
+  outline: none;
+  border: 1px solid white;
+}
+
+/* Buttons */
+.admin-button {
+  margin-top: 1rem;
+  padding: 0.9rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 40px;
+  background: linear-gradient(to right, #111, #1e1e1e); /* match dashboard */
+  color: #ffff;
+  border: 1px solid hwb(0 92% 5% / 0.188);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-button:hover {
+  background: rgb(255, 255, 255);
+  color: hwb(0 6% 94%);
+  border: 1px solid white;
+}
+
+
+/* Pause/Activate state coloring */
+.admin-button.pause {
+  background-color: #f15b5b;
+  color: white;
+}
+
+.admin-button.activate {
+  background-color: #26d17b;
+  color: rgb(255, 255, 255);
+}
+
+/* Candidate Grid */
+.candidates-section .candidates-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  margin-top: 1rem;
+}
+
+.candidate-card {
+  background-color: #1a1a1a;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid #333;
+  text-align: center;
+}
+
+.candidate-card h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  color: white;
+}
+
+.candidate-card .party {
+  color: #bbb;
+  font-size: 1rem;
+}
+
+.candidate-card .tx-hash {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+/* Drawer Modal */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 15, 15, 0.8);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.drawer-container.winner-modal {
+  background-color: #111;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-height: 70vh;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.drawer-content {
+  color: white;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.modal-desc {
+  font-size: 1.1rem;
+  color: #aaa;
+  margin-bottom: 1rem;
+}
+
+.admin-submit-btn {
+  margin-top: 1.5rem;
+  padding: 0.75rem 2rem;
+  font-weight: bold;
+  border-radius: 999px;
+  border: none;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-submit-btn:hover {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
 }

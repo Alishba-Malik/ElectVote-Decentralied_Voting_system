@@ -103,7 +103,7 @@ const LeaderboardPanel = () => {
             <div className="drawer-content">
               {winner?.name ? (
                 <>
-                    <h2 className="modal-title"> Winner {"Winner".split("").map((char, i) => (
+                    <h2 className="modal-title"> {"Winner".split("").map((char, i) => (
                     <span key={i} className={styles.hoverText}>{char}</span>
                     ))}
                   </h2>
