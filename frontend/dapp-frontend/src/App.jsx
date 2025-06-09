@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/DashboardPage";
 import AdminPanel from "./pages/AdminPanel";
+import PublicPanel from "./pages/PublicPanel";
 import LeaderboardPanel from "./pages/LeaderboardPanel";
 import "./App.css";
 
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/leaderboard" element={<LeaderboardPanel />} />
+          <Route path="/public" element={<PublicPanel />} />
         </Routes>
       </Router>
       <div

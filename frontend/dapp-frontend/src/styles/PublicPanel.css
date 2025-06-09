@@ -1,0 +1,130 @@
+/* File: src/styles/PublicPanel.css */
+
+.public-panel-wrapper {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: auto;
+    background-color: #000;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+  
+  .tab-bar {
+    position: relative;
+    display: flex;
+    width: fit-content;
+    margin: 0 auto 2rem auto;
+    padding: 0.5rem;
+    border: 2px solid white;
+    border-radius: 999px;
+    background-color: black;
+    list-style: none;
+    z-index: 1;
+  }
+  
+  .tab-item {
+    position: relative;
+    z-index: 2;
+    padding: 0.5rem 1.25rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    mix-blend-mode: difference;
+    color: white;
+    transition: color 0.3s ease;
+  }
+  
+  .tab-item.active {
+    color: white;
+  }
+  
+  .tab-cursor {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: white;
+    border-radius: 999px;
+    z-index: 0;
+  }
+  
+  .tab-content {
+    margin-top: 2rem;
+  }
+  
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .candidate-card {
+    background-color: #111;
+    padding: 1.25rem;
+    border-radius: 1rem;
+    border: 1px solid #333;
+    text-align: center;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+  }
+  
+  .candidate-card h2 {
+    margin-bottom: 0.5rem;
+    color: white;
+  }
+  
+  .candidate-card p {
+    color: #aaa;
+    margin-bottom: 1rem;
+  }
+  
+  .candidate-card button {
+    padding: 0.6rem 1.5rem;
+    font-weight: bold;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .candidate-card button:disabled {
+    background-color: #333;
+    color: #888;
+    cursor: not-allowed;
+  }
+  
+  .status-info {
+    padding: 1.5rem;
+    background-color: #111;
+    border-radius: 1rem;
+    border: 1px solid #333;
+    line-height: 1.8;
+    font-size: 1rem;
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .status-info code {
+    color: #ccc;
+    font-size: 0.9rem;
+  }
+  
+  .countdown {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #eee;
+    margin-top: 1rem;
+  }
+  
+  .countdown span {
+    background: #222;
+    padding: 0.3rem 0.6rem;
+    border-radius: 8px;
+    margin: 0 0.3rem;
+    display: inline-block;
+  }
+  
