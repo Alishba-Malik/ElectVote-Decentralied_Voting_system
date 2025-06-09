@@ -6,6 +6,7 @@ import { BrowserProvider, Contract } from "ethers";
 import styles from "../styles/bubble.module.css";
 import "../styles/LeaderboardPanel.css";
 
+
 const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS;
 
 const LeaderboardPanel = () => {
