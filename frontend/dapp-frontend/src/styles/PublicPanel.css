@@ -1,16 +1,24 @@
-/* File: src/styles/PublicPanel.css */
-
 .public-panel-wrapper {
-    padding: 2rem;
-    max-width: 1000px;
+    max-width: 960px;
     margin: auto;
-    background-color: #000;
+    padding: 2rem;
+    background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
     color: white;
     font-family: 'Segoe UI', sans-serif;
     min-height: 100vh;
     box-sizing: border-box;
+    position: relative;
   }
   
+  .main-heading {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: white;
+  }
+  
+  /* Tabs */
   .tab-bar {
     position: relative;
     display: flex;
@@ -50,10 +58,12 @@
     z-index: 0;
   }
   
+  /* Tab Content */
   .tab-content {
     margin-top: 2rem;
   }
   
+  /* Candidate Cards */
   .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -67,6 +77,12 @@
     border: 1px solid #333;
     text-align: center;
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  
+  .candidate-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.07);
   }
   
   .candidate-card h2 {
@@ -76,7 +92,7 @@
   
   .candidate-card p {
     color: #aaa;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
   }
   
   .candidate-card button {
@@ -96,6 +112,7 @@
     cursor: not-allowed;
   }
   
+  /* Status Info */
   .status-info {
     padding: 1.5rem;
     background-color: #111;
@@ -126,5 +143,103 @@
     border-radius: 8px;
     margin: 0 0.3rem;
     display: inline-block;
+  }
+  
+  /* Modal Drawer */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(15, 15, 15, 0.8);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  
+  .drawer-container.winner-modal {
+    background-color: #111;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    padding: 2rem 1.5rem;
+    width: 100%;
+    max-height: 70vh;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+  
+  .drawer-handle-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  .drawer-handle {
+    width: 60px;
+    height: 6px;
+    background-color: #555;
+    border-radius: 10px;
+  }
+  
+  .drawer-content {
+    color: white;
+    text-align: center;
+  }
+  
+  .modal-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .modal-desc {
+    font-size: 1.1rem;
+    color: #aaa;
+    margin-bottom: 1rem;
+  }
+  
+  .admin-submit-btn {
+    margin-top: 1.5rem;
+    padding: 0.75rem 2rem;
+    font-weight: bold;
+    border-radius: 999px;
+    border: none;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .admin-submit-btn:hover {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+  }
+  
+  /* Vote badge */
+  .badge-info {
+    text-align: center;
+    margin-top: 1rem;
+    color: #00ff7f;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  
+  /* Countdown blocks */
+  .countdown span {
+    background: #222;
+    padding: 0.35rem 0.65rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 0 0.2rem;
+  }
+  
+  /* Election Info Topline */
+  .election-info {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #bbb;
   }
   
