@@ -1,10 +1,8 @@
-/* File: src/styles/LeaderboardPanel.css */
-
 .leaderboard-wrapper {
-  max-width: 900px;
+  max-width: 960px;
   margin: auto;
   padding: 2rem;
-  background-color: #000;
+  background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
   color: white;
   font-family: 'Segoe UI', sans-serif;
   min-height: 100vh;
@@ -15,122 +13,148 @@
 .leaderboard-title {
   text-align: center;
   font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.election-id {
+  text-align: center;
+  color: #aaa;
   margin-bottom: 2rem;
-  font-weight: 800;
-  color: white;
 }
 
 .leaderboard-list {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .leaderboard-card {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   background-color: #111;
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
   border: 1px solid #333;
-  border-radius: 12px;
-  padding: 1.25rem;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.leaderboard-card:hover {
+  background-color: #222;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
 }
 
 .leaderboard-card .rank {
   font-size: 2rem;
   font-weight: bold;
-  color: #ccc;
-  margin-right: 1.5rem;
-  min-width: 50px;
-  text-align: center;
+  color: #bbb;
+  margin-right: 1.25rem;
 }
 
 .leaderboard-card .info h2 {
   margin: 0;
-  font-size: 1.5rem;
-  color: #fff;
+  font-size: 1.4rem;
+  color: white;
 }
 
 .leaderboard-card .info p {
-  margin: 0.25rem 0;
-  color: #aaa;
+  margin: 0.2rem 0;
   font-size: 1rem;
+  color: #aaa;
 }
 
 .leaderboard-card.top {
   border: 2px solid white;
   background-color: #1a1a1a;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-  transform: scale(1.02);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
 }
 
-.leaderboard-card.regular {
-  border: 1px solid #444;
-  background-color: #0a0a0a;
+.winner-btn {
+  margin: 2rem auto 0;
+  display: block;
+  padding: 0.9rem 2rem;
+  border: none;
+  border-radius: 999px;
+  font-weight: 600;
+  background: linear-gradient(to right, #fff, #ddd);
+  color: black;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-@media (max-width: 600px) {
-  .leaderboard-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .leaderboard-card .rank {
-    margin-bottom: 0.5rem;
-    margin-right: 0;
-  }
+.winner-btn:hover {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
 }
 
-/* Winner Modal Styles */
 .drawer-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(15, 15, 15, 0.85);
-  z-index: 2000;
+  background-color: rgba(15, 15, 15, 0.8);
+  z-index: 999;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .drawer-container.winner-modal {
   background-color: #111;
-  border-radius: 1.5rem;
-  padding: 2rem;
-  width: 90%;
-  max-width: 500px;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-height: 70vh;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.drawer-handle-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.drawer-handle {
+  width: 60px;
+  height: 6px;
+  background-color: #555;
+  border-radius: 10px;
+}
+
+.drawer-content {
+  color: white;
   text-align: center;
-  z-index: 2100;
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
 }
 
 .modal-title {
   font-size: 2rem;
-  color: white;
   font-weight: 700;
   margin-bottom: 1rem;
 }
 
 .modal-desc {
-  color: #ccc;
-  margin-bottom: 1rem;
   font-size: 1.1rem;
+  color: #aaa;
+  margin-bottom: 1rem;
 }
 
 .admin-submit-btn {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   padding: 0.75rem 2rem;
-  font-weight: bold;
+  font-weight: 600;
   border-radius: 999px;
+  background: linear-gradient(to right, #fff, #ddd);
   border: none;
-  background-color: white;
   color: black;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .admin-submit-btn:hover {
-  background-color: black;
+  background: transparent;
   color: white;
   border: 1px solid white;
 }
