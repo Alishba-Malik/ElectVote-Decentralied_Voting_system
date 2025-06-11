@@ -113,8 +113,7 @@ const AdminDrawerContent = () => {
     const expectedKey = import.meta.env.VITE_PRIVATE_KEY;
 
     const entered = inputKey.trim();
-    console.log("Entered:", entered);
-    console.log("Expected:", expectedKey);
+
 
     if (!expectedKey) {
       setError("⚠️ Admin private key is not configured.");
